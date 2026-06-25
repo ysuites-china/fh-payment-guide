@@ -1,0 +1,740 @@
+<!DOCTYPE html>
+<html lang="zh">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0">
+<title>Starvia by Y Suites on Fortress Hill · 预订缴费全流程</title>
+<style>
+  @import url('https://fonts.googleapis.com/css2?family=Noto+Sans+SC:wght@300;400;500;700&family=Montserrat:wght@600;700;800&display=swap');
+
+  :root {
+    --teal: #00BAB3;
+    --teal-light: #E6F8F7;
+    --teal-mid: #009E98;
+    --coral: #F08080;
+    --coral-light: #FDF0F0;
+    --text: #1A1A2E;
+    --text-muted: #5A5A72;
+    --divider: #E8E8EF;
+    --white: #FFFFFF;
+    --bg: #F4F5F9;
+  }
+
+  * { margin: 0; padding: 0; box-sizing: border-box; -webkit-tap-highlight-color: transparent; }
+
+  html { font-size: 16px; }
+
+  body {
+    font-family: 'Noto Sans SC', sans-serif;
+    background: var(--bg);
+    color: var(--text);
+    line-height: 1.7;
+    -webkit-font-smoothing: antialiased;
+  }
+
+  /* ── HEADER ── */
+  header {
+    background: var(--text);
+    padding: 28px 20px 24px;
+  }
+
+  .brand-name {
+    font-family: 'Montserrat', sans-serif;
+    font-size: 10px;
+    font-weight: 700;
+    letter-spacing: 2.5px;
+    text-transform: uppercase;
+    color: var(--teal);
+    margin-bottom: 6px;
+  }
+
+  .guide-title {
+    font-size: 22px;
+    font-weight: 700;
+    color: var(--white);
+    line-height: 1.3;
+    margin-bottom: 4px;
+  }
+
+  .guide-sub {
+    font-size: 12px;
+    color: rgba(255,255,255,0.45);
+    font-weight: 300;
+    line-height: 1.6;
+  }
+
+  /* ── STICKY PHASE NAV ── */
+  .phase-nav {
+    position: sticky;
+    top: 0;
+    z-index: 100;
+    display: flex;
+    background: var(--white);
+    border-bottom: 1px solid var(--divider);
+    box-shadow: 0 2px 8px rgba(0,0,0,0.06);
+  }
+
+  .phase-tab {
+    flex: 1;
+    padding: 12px 4px 10px;
+    text-align: center;
+    cursor: pointer;
+    border-bottom: 3px solid transparent;
+    transition: all 0.2s;
+    font-size: 11px;
+    font-weight: 500;
+    color: var(--text-muted);
+    user-select: none;
+    -webkit-user-select: none;
+  }
+
+  .phase-tab.active {
+    border-bottom-color: var(--teal);
+    color: var(--teal-mid);
+    background: var(--teal-light);
+  }
+
+  .phase-tab .tab-num {
+    display: block;
+    font-family: 'Montserrat', sans-serif;
+    font-size: 16px;
+    font-weight: 800;
+    color: var(--teal);
+    margin-bottom: 1px;
+  }
+
+  .phase-tab.active .tab-num { color: var(--teal-mid); }
+
+  /* ── MAIN ── */
+  main {
+    padding: 20px 16px 80px;
+    max-width: 640px;
+    margin: 0 auto;
+  }
+
+  /* ── PHASE BLOCK ── */
+  .phase-block { display: none; }
+  .phase-block.active {
+    display: block;
+    animation: fadeUp 0.25s ease;
+  }
+
+  @keyframes fadeUp {
+    from { opacity: 0; transform: translateY(10px); }
+    to   { opacity: 1; transform: translateY(0); }
+  }
+
+  /* ── PHASE HEADER ── */
+  .phase-header {
+    display: flex;
+    align-items: center;
+    gap: 12px;
+    margin-bottom: 20px;
+    padding-bottom: 16px;
+    border-bottom: 2px solid var(--divider);
+  }
+
+  .phase-icon {
+    width: 44px;
+    height: 44px;
+    border-radius: 12px;
+    background: var(--teal);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 20px;
+    flex-shrink: 0;
+  }
+
+  .phase-label {
+    font-family: 'Montserrat', sans-serif;
+    font-size: 9px;
+    font-weight: 700;
+    letter-spacing: 2px;
+    text-transform: uppercase;
+    color: var(--teal);
+    margin-bottom: 2px;
+  }
+
+  .phase-title {
+    font-size: 18px;
+    font-weight: 700;
+    color: var(--text);
+  }
+
+  /* ── STEPS ── */
+  .steps { display: flex; flex-direction: column; }
+
+  .step { display: flex; position: relative; }
+
+  .step-left {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    width: 44px;
+    flex-shrink: 0;
+  }
+
+  .step-num {
+    width: 32px;
+    height: 32px;
+    border-radius: 50%;
+    background: var(--teal);
+    color: var(--white);
+    font-family: 'Montserrat', sans-serif;
+    font-size: 13px;
+    font-weight: 700;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    flex-shrink: 0;
+    position: relative;
+    z-index: 1;
+  }
+
+  .step-line {
+    width: 2px;
+    flex: 1;
+    background: var(--divider);
+    margin: 4px 0;
+    min-height: 20px;
+  }
+
+  .step:last-child .step-line { display: none; }
+
+  .step-body {
+    flex: 1;
+    padding: 2px 0 24px 14px;
+  }
+
+  .step-title {
+    font-weight: 700;
+    font-size: 15px;
+    color: var(--text);
+    margin-bottom: 6px;
+    padding-top: 3px;
+    line-height: 1.4;
+  }
+
+  .step-desc {
+    color: var(--text-muted);
+    font-size: 14px;
+    line-height: 1.8;
+  }
+
+  .step-desc ul {
+    margin-top: 8px;
+    padding-left: 16px;
+  }
+
+  .step-desc li { margin-bottom: 4px; }
+
+  /* ── CALLOUT ── */
+  .callout {
+    background: var(--teal-light);
+    border-left: 3px solid var(--teal);
+    border-radius: 0 8px 8px 0;
+    padding: 10px 14px;
+    margin-top: 10px;
+    font-size: 13px;
+    color: var(--text-muted);
+    line-height: 1.7;
+  }
+
+  .callout.warn {
+    background: var(--coral-light);
+    border-left-color: var(--coral);
+  }
+
+  .callout strong { color: var(--text); }
+
+  /* ── PAYMENT OPTIONS ── */
+  .payment-options {
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+    margin-top: 12px;
+  }
+
+  .pay-option {
+    border-radius: 12px;
+    border: 1.5px solid var(--divider);
+    overflow: hidden;
+    background: var(--white);
+  }
+
+  .pay-option-header {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    padding: 14px 14px;
+    cursor: pointer;
+    user-select: none;
+    -webkit-user-select: none;
+    /* larger tap target */
+    min-height: 56px;
+  }
+
+  .pay-option.alipay .pay-option-header { border-left: 4px solid #1677FF; }
+  .pay-option.wechat .pay-option-header { border-left: 4px solid #07C160; }
+  .pay-option.bank   .pay-option-header { border-left: 4px solid var(--coral); }
+
+  .pay-emoji { font-size: 22px; flex-shrink: 0; }
+
+  .pay-info { flex: 1; min-width: 0; }
+
+  .pay-option-title {
+    font-weight: 600;
+    font-size: 14px;
+    color: var(--text);
+    line-height: 1.3;
+  }
+
+  .pay-option-fee {
+    font-size: 11px;
+    color: var(--text-muted);
+    margin-top: 2px;
+  }
+
+  .pay-badge {
+    font-family: 'Montserrat', sans-serif;
+    font-size: 9px;
+    font-weight: 700;
+    letter-spacing: 0.5px;
+    padding: 2px 7px;
+    border-radius: 4px;
+    text-transform: uppercase;
+    flex-shrink: 0;
+    white-space: nowrap;
+  }
+
+  .pay-option.alipay .pay-badge { background: #E8F1FF; color: #1677FF; }
+  .pay-option.wechat .pay-badge { background: #E8F8EE; color: #07C160; }
+  .pay-option.bank   .pay-badge { background: var(--coral-light); color: var(--coral); }
+
+  .pay-chevron {
+    font-size: 11px;
+    color: var(--text-muted);
+    transition: transform 0.2s;
+    flex-shrink: 0;
+  }
+
+  .pay-option.open .pay-chevron { transform: rotate(180deg); }
+
+  .pay-option-body {
+    display: none;
+    padding: 0 14px 16px 14px;
+    border-top: 1px solid var(--divider);
+  }
+
+  .pay-option.open .pay-option-body { display: block; }
+
+  /* ── SUB STEPS ── */
+  .sub-steps {
+    margin-top: 12px;
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+  }
+
+  .sub-step {
+    display: flex;
+    gap: 10px;
+    align-items: flex-start;
+  }
+
+  .sub-num {
+    width: 22px;
+    height: 22px;
+    border-radius: 6px;
+    font-family: 'Montserrat', sans-serif;
+    font-size: 11px;
+    font-weight: 700;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    flex-shrink: 0;
+    margin-top: 1px;
+  }
+
+  .pay-option.alipay .sub-num { background: #E8F1FF; color: #1677FF; }
+  .pay-option.wechat .sub-num { background: #E8F8EE; color: #07C160; }
+  .pay-option.bank   .sub-num { background: var(--coral-light); color: var(--coral); }
+
+  .sub-text {
+    font-size: 13.5px;
+    color: var(--text);
+    line-height: 1.7;
+    flex: 1;
+  }
+
+  /* ── EMAIL PILL ── */
+  .email-pill {
+    display: inline-flex;
+    align-items: center;
+    gap: 5px;
+    background: var(--teal-light);
+    color: var(--teal-mid);
+    font-size: 12px;
+    font-weight: 600;
+    padding: 4px 10px;
+    border-radius: 100px;
+    margin-top: 4px;
+    word-break: break-all;
+  }
+
+  /* ── FOOTER ── */
+  footer {
+    text-align: center;
+    padding: 24px 20px;
+    font-size: 12px;
+    color: var(--text-muted);
+    background: var(--white);
+    border-top: 1px solid var(--divider);
+    line-height: 1.8;
+  }
+
+  a { color: var(--teal-mid); text-decoration: none; }
+</style>
+</head>
+<body>
+
+<header>
+  <div class="brand-name">Starvia by Y Suites on Fortress Hill</div>
+  <div class="guide-title">预订缴费全流程指南</div>
+  <div class="guide-sub">递交申请后 · 定金支付 · 订单确认 · 尾款缴纳</div>
+</header>
+
+<nav class="phase-nav">
+  <div class="phase-tab active" onclick="showPhase(0)">
+    <span class="tab-num">01</span>支付定金
+  </div>
+  <div class="phase-tab" onclick="showPhase(1)">
+    <span class="tab-num">02</span>订单确认
+  </div>
+  <div class="phase-tab" onclick="showPhase(2)">
+    <span class="tab-num">03</span>支付尾款
+  </div>
+</nav>
+
+<main>
+
+<!-- ═══ PHASE 1 ═══ -->
+<div class="phase-block active" id="phase-0">
+  <div class="phase-header">
+    <div class="phase-icon">💰</div>
+    <div>
+      <div class="phase-label">Phase 01</div>
+      <div class="phase-title">支付定金</div>
+    </div>
+  </div>
+
+  <div class="steps">
+
+    <div class="step">
+      <div class="step-left"><div class="step-num">1</div><div class="step-line"></div></div>
+      <div class="step-body">
+        <div class="step-title">确认 Offer 邮件中的信息</div>
+        <div class="step-desc">
+          收到 Offer 邮件后，请仔细核对：
+          <ul>
+            <li>房型（Room Type）</li>
+            <li>姓名及身份信息</li>
+            <li>租期起止日期（Lease Start / End Date）</li>
+          </ul>
+          <div class="callout warn">⚠️ <strong>如信息有误</strong>，请在付款前联系中国区团队，切勿直接付款。</div>
+        </div>
+      </div>
+    </div>
+
+    <div class="step">
+      <div class="step-left"><div class="step-num">2</div><div class="step-line"></div></div>
+      <div class="step-body">
+        <div class="step-title">点击付款链接，核对付款详情</div>
+        <div class="step-desc">
+          点击邮件中的付款链接，进入页面后：
+          <ul>
+            <li>再次核对订单信息</li>
+            <li>查看页面右侧<strong>待付金额明细及总额</strong></li>
+          </ul>
+        </div>
+      </div>
+    </div>
+
+    <div class="step">
+      <div class="step-left"><div class="step-num">3</div><div class="step-line"></div></div>
+      <div class="step-body">
+        <div class="step-title">完成两项勾选</div>
+        <div class="step-desc">
+          页面下方有两个必选项：
+          <ul>
+            <li>同意预订条款及隐私政策</li>
+            <li>已阅读<strong>合约模版</strong>（Sample Agreement）——可点击查看完整合同条款</li>
+          </ul>
+        </div>
+      </div>
+    </div>
+
+    <div class="step">
+      <div class="step-left"><div class="step-num">4</div><div class="step-line"></div></div>
+      <div class="step-body">
+        <div class="step-title">选择付款方式</div>
+        <div class="step-desc">请根据实际情况选择以下三种方式之一：</div>
+
+        <div class="payment-options">
+
+          <!-- Alipay -->
+          <div class="pay-option alipay open" id="opt-alipay">
+            <div class="pay-option-header" onclick="togglePay('opt-alipay')">
+              <span class="pay-emoji">🔵</span>
+              <div class="pay-info">
+                <div class="pay-option-title">支付宝 · 留学租房缴费</div>
+                <div class="pay-option-fee">免手续费（有小额足额到账费）</div>
+              </div>
+              <span class="pay-badge">推荐</span>
+              <span class="pay-chevron">▼</span>
+            </div>
+            <div class="pay-option-body">
+              <div class="callout" style="margin-top:12px;margin-bottom:4px;">
+                点击付款页面下方 <strong>「Create Invoice」</strong>，生成缴费证明后，按以下步骤在支付宝完成支付。
+              </div>
+              <div class="sub-steps">
+                <div class="sub-step">
+                  <div class="sub-num">1</div>
+                  <div class="sub-text">打开支付宝，搜索 <strong>「留学缴费」</strong>，选择 <strong>「留学租房缴费」</strong></div>
+                </div>
+                <div class="sub-step">
+                  <div class="sub-num">2</div>
+                  <div class="sub-text">点击「搜索租房机构」，输入：<br><strong>STARVIA BY Y SUITES FH LIMITED</strong></div>
+                </div>
+                <div class="sub-step">
+                  <div class="sub-num">3</div>
+                  <div class="sub-text">搜索并选择 <strong>Starvia by Y Suites FH Limited</strong>，空格处填入 <strong>150</strong> 完成校验</div>
+                </div>
+                <div class="sub-step">
+                  <div class="sub-num">4</div>
+                  <div class="sub-text">完成缴费人信息填写，上传前面下载的 <strong>Invoice 文件</strong>，完成支付</div>
+                </div>
+                <div class="sub-step">
+                  <div class="sub-num">5</div>
+                  <div class="sub-text">⚠️ <strong>Reference Number</strong> 处请填写 Offer 邮件中的<strong>六位订单号</strong></div>
+                </div>
+                <div class="sub-step">
+                  <div class="sub-num">6</div>
+                  <div class="sub-text">
+                    支付完成后，截图保存收据，发送至：<br>
+                    <a href="mailto:reservations@ysuites.co" class="email-pill">📧 reservations@ysuites.co</a>
+                  </div>
+                </div>
+              </div>
+              <div class="callout" style="margin-top:12px;">💡 入账通常在工作日 24 小时内完成，付款后耐心等待确认邮件。</div>
+            </div>
+          </div>
+
+          <!-- WeChat / Credit Card -->
+          <div class="pay-option wechat" id="opt-wechat">
+            <div class="pay-option-header" onclick="togglePay('opt-wechat')">
+              <span class="pay-emoji">💳</span>
+              <div class="pay-info">
+                <div class="pay-option-title">微信支付 / 信用卡</div>
+                <div class="pay-option-fee">含手续费 3.4%</div>
+              </div>
+              <span class="pay-badge">线上</span>
+              <span class="pay-chevron">▼</span>
+            </div>
+            <div class="pay-option-body">
+              <div class="sub-steps">
+                <div class="sub-step">
+                  <div class="sub-num">1</div>
+                  <div class="sub-text">点击页面下方 <strong>「Make Payment」</strong> 按钮</div>
+                </div>
+                <div class="sub-step">
+                  <div class="sub-num">2</div>
+                  <div class="sub-text">进入付款页面后，选择付款方式（微信 / 信用卡）</div>
+                </div>
+                <div class="sub-step">
+                  <div class="sub-num">3</div>
+                  <div class="sub-text">按提示完成支付，系统将自动记录</div>
+                </div>
+              </div>
+              <div class="callout warn" style="margin-top:12px;">⚠️ 此方式将额外收取 <strong>3.4% 手续费</strong>，请在支付前确认总金额。</div>
+            </div>
+          </div>
+
+          <!-- Bank Transfer -->
+          <div class="pay-option bank" id="opt-bank">
+            <div class="pay-option-header" onclick="togglePay('opt-bank')">
+              <span class="pay-emoji">🏦</span>
+              <div class="pay-info">
+                <div class="pay-option-title">手机银行 / 线下银行汇款</div>
+                <div class="pay-option-fee">免手续费（银行手续费另计）</div>
+              </div>
+              <span class="pay-badge">转账</span>
+              <span class="pay-chevron">▼</span>
+            </div>
+            <div class="pay-option-body">
+              <div class="sub-steps">
+                <div class="sub-step">
+                  <div class="sub-num">1</div>
+                  <div class="sub-text">点击页面下方 <strong>「Bank Transfer」</strong>，系统将发送含转账信息的邮件至申请邮箱</div>
+                </div>
+                <div class="sub-step">
+                  <div class="sub-num">2</div>
+                  <div class="sub-text">按邮件中的收款账户信息完成汇款</div>
+                </div>
+                <div class="sub-step">
+                  <div class="sub-num">3</div>
+                  <div class="sub-text">⚠️ <strong>务必正确填写转账附言</strong>（Payment Reference），确保款项可被准确识别</div>
+                </div>
+                <div class="sub-step">
+                  <div class="sub-num">4</div>
+                  <div class="sub-text">
+                    保留付款凭证截图，发送至：<br>
+                    <a href="mailto:reservations@ysuites.co" class="email-pill">📧 reservations@ysuites.co</a>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+
+        </div>
+      </div>
+    </div>
+
+  </div>
+</div>
+
+<!-- ═══ PHASE 2 ═══ -->
+<div class="phase-block" id="phase-1">
+  <div class="phase-header">
+    <div class="phase-icon">✅</div>
+    <div>
+      <div class="phase-label">Phase 02</div>
+      <div class="phase-title">订单确认</div>
+    </div>
+  </div>
+
+  <div class="callout" style="margin-bottom:20px;">💡 定金支付完成后，通常需要 <strong>1–3 个工作日</strong>处理，请留意以下两封重要邮件。</div>
+
+  <div class="steps">
+
+    <div class="step">
+      <div class="step-left"><div class="step-num">1</div><div class="step-line"></div></div>
+      <div class="step-body">
+        <div class="step-title">查收并保存 Booking Confirmation</div>
+        <div class="step-desc">
+          邮件主题：<strong>Starvia By Y Suites on Fortress Hill - Booking Confirmation</strong><br><br>
+          收到后，请下载并核对附件中的：
+          <ul>
+            <li>房间号是否与预期一致</li>
+            <li>尾款金额是否符合所属优惠（如 Early Bird 等）</li>
+            <li><strong>第二期付款</strong>总额（用于后续尾款缴纳）</li>
+          </ul>
+        </div>
+      </div>
+    </div>
+
+    <div class="step">
+      <div class="step-left"><div class="step-num">2</div><div class="step-line"></div></div>
+      <div class="step-body">
+        <div class="step-title">查收 What's Next 邮件，完成必要准备</div>
+        <div class="step-desc">
+          邮件主题：<strong>What's Next? Ensure Smooth Check-In to Starvia By Y Suites on Fortress Hill</strong><br><br>
+          该邮件包含入住前的重要任务，请务必按要求完成：
+          <ul>
+            <li>✅ <strong>住宿协议签署</strong>（Tenancy Agreement）</li>
+            <li>✅ <strong>必要入住资料上传</strong>（如证件、学生身份认证等）</li>
+          </ul>
+          <div class="callout warn" style="margin-top:10px;">⚠️ 上述两项若未完成，可能影响正式入住。</div>
+        </div>
+      </div>
+    </div>
+
+  </div>
+</div>
+
+<!-- ═══ PHASE 3 ═══ -->
+<div class="phase-block" id="phase-2">
+  <div class="phase-header">
+    <div class="phase-icon">🏠</div>
+    <div>
+      <div class="phase-label">Phase 03</div>
+      <div class="phase-title">支付剩余房租</div>
+    </div>
+  </div>
+
+  <div class="callout" style="margin-bottom:20px;">📅 尾款需在 <strong>7 月 15 日前</strong>完成支付，请提前安排。</div>
+
+  <div class="steps">
+
+    <div class="step">
+      <div class="step-left"><div class="step-num">1</div><div class="step-line"></div></div>
+      <div class="step-body">
+        <div class="step-title">查阅尾款金额</div>
+        <div class="step-desc">
+          从此前收到的 <strong>Booking Confirmation</strong> 附件中查看「第二期付款」的总额，包含：
+          <ul>
+            <li>租金尾款</li>
+            <li>水电费押金</li>
+          </ul>
+          请核对金额是否与所属优惠一致后再行支付。
+        </div>
+      </div>
+    </div>
+
+    <div class="step">
+      <div class="step-left"><div class="step-num">2</div><div class="step-line"></div></div>
+      <div class="step-body">
+        <div class="step-title">选择付款方式完成尾款支付</div>
+        <div class="step-desc">
+          支持与定金相同的三种付款方式：
+          <ul>
+            <li>🔵 支付宝留学租房缴费（免手续费，推荐）</li>
+            <li>💳 微信 / 信用卡线上支付（含 3.4% 手续费）</li>
+            <li>🏦 手机银行 / 线下汇款</li>
+          </ul>
+          <div class="callout" style="margin-top:10px;">
+            💡 详细操作步骤请参考「<a href="#" onclick="showPhase(0);return false;" style="font-weight:600;">Phase 01 · 支付定金</a>」第 4 步。
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <div class="step">
+      <div class="step-left"><div class="step-num">3</div><div class="step-line"></div></div>
+      <div class="step-body">
+        <div class="step-title">入住当天缴纳合同厘印费</div>
+        <div class="step-desc">
+          办理入住手续时，请至前台现场支付<strong>合同厘印费</strong>（Stamp Duty）。
+        </div>
+      </div>
+    </div>
+
+  </div>
+</div>
+
+</main>
+
+<footer>
+  Starvia By Y Suites on Fortress Hill<br>
+  如有疑问请联系中国区团队或发邮件至<br>
+  <a href="mailto:reservations@ysuites.co">reservations@ysuites.co</a>
+</footer>
+
+<script>
+  function showPhase(idx) {
+    document.querySelectorAll('.phase-block').forEach((b, i) => b.classList.toggle('active', i === idx));
+    document.querySelectorAll('.phase-tab').forEach((t, i) => t.classList.toggle('active', i === idx));
+    window.scrollTo({ top: 0, behavior: 'smooth' });
+  }
+
+  function togglePay(id) {
+    const el = document.getElementById(id);
+    const wasOpen = el.classList.contains('open');
+    document.querySelectorAll('.pay-option').forEach(o => o.classList.remove('open'));
+    if (!wasOpen) el.classList.add('open');
+  }
+</script>
+
+</body>
+</html>
